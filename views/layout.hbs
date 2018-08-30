@@ -14,22 +14,14 @@
 <div id="wrapper">
     <button id="permission-button">Request permissions</button>
     <button id="notify-button">Notify Me!!</button>
+    <button id="notify2-button">Notify Me (later)!!</button>
     <button id="clear-button">Clear All!</button>
     <button id="check-button">Check Permission</button>
 </div>
 
 <script>
-    function onGranted(){
-        console.log('permission granted');
-    }
-    function onDenied(){
-        console.log('permission denied');
-    }
-    $('#permission-button').click(function(){
-        Push.Permission.request(onGranted, onDenied);
-    });
-    $("#notify-button").click(function(){
-        Push.create("Whatsapp",{
+    function test_notification() {
+        Push.create("Whatsapp", {
             body: "Heia, how is going ? (can be visitors real/IP location here)",
             icon: 'http://icons.iconarchive.com/icons/dtafalonso/android-l/256/WhatsApp-icon.png',
             timeout: 5000,
@@ -39,15 +31,36 @@
                 window.location = 'http://example.com';
             }
         });
+    }
+
+    function onGranted() {
+        console.log('permission granted');
+    }
+
+    function onDenied() {
+        console.log('permission denied');
+    }
+
+    $('#permission-button').click(function () {
+        Push.Permission.request(onGranted, onDenied);
+    });
+    $("#notify-button").click(function () {
+        test_notification();
+    });
+    $("#notify2-button").click(function () {
+        alert('Notification will show in 5 seconds');
+        setTimeout(function(){
+            test_notification();
+        }, 5000);
     });
 
-    $("#clear-button").click(function(){
+    $("#clear-button").click(function () {
         Push.clear();
     });
 
-    $("#check-button").click(function(){
+    $("#check-button").click(function () {
         var p = Push.Permission.has();
-        if(p) alert('User has permissions set');
+        if (p) alert('User has permissions set');
         else alert('No permissions set for user');
     });
 
