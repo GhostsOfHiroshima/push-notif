@@ -4,10 +4,7 @@
     <title>{{title}}</title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
 
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-            crossorigin="anonymous"></script>
+    <script src="/javascripts/vendor/jquery/jquery.min.js"></script>
     <script src="/javascripts/vendor/push.min.js"></script>
     <script src="/javascripts/vendor/serviceWorker.min.js"></script>
 </head>
@@ -15,12 +12,22 @@
 {{{body}}}
 
 <div id="wrapper">
+    <button id="permission-button">Request permissions</button>
     <button id="notify-button">Notify Me!!</button>
     <button id="clear-button">Clear All!</button>
     <button id="check-button">Check Permission</button>
 </div>
 
 <script>
+    function onGranted(){
+        console.log('permission granted');
+    }
+    function onDenied(){
+        console.log('permission denied');
+    }
+    $('#permission-button').click(function(){
+        Push.Permission.request(onGranted, onDenied);
+    });
     $("#notify-button").click(function(){
         Push.create("Whatsapp",{
             body: "Heia, how is going ? (can be visitors real/IP location here)",
