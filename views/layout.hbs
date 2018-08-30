@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+            crossorigin="anonymous"></script>
+    <script src="/javascripts/vendor/push.min.js"></script>
+    <script src="/javascripts/vendor/serviceWorker.min.js"></script>
+</head>
+<body>
+{{{body}}}
+
+<div id="wrapper">
+    <button id="notify-button">Notify Me!!</button>
+    <button id="clear-button">Clear All!</button>
+    <button id="check-button">Check Permission</button>
+</div>
+
+<script>
+    $("#notify-button").click(function(){
+        Push.create("Whatsapp",{
+            body: "Heia, how is going ? (can be visitors real/IP location here)",
+            icon: 'http://icons.iconarchive.com/icons/dtafalonso/android-l/256/WhatsApp-icon.png',
+            timeout: 5000,
+            onClick: function () {
+                window.focus();
+                this.close();
+                window.location = 'http://example.com';
+            }
+        });
+    });
+
+    $("#clear-button").click(function(){
+        Push.clear();
+    });
+
+    $("#check-button").click(function(){
+        var p = Push.Permission.has();
+        if(p) alert('User has permissions set');
+        else alert('No permissions set for user');
+    });
+
+</script>
+</body>
+</html>

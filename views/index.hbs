@@ -1,0 +1,17 @@
+<h1>{{title}}</h1>
+<p>Welcome to a simple push notification test</p>
+<p>
+    <script>
+        window.document.onload = function (e) {
+            Push.create("Hello world!", {
+                body: "How's it hangin'?",
+                icon: '/icon.png',
+                timeout: 4000,
+                onClick: function () {
+                    window.focus();
+                    this.close();
+                }
+            });
+        }
+    </script>
+</p>
