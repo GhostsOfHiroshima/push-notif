@@ -7,6 +7,10 @@ Can be further developed using [socket.io](https://socket.io/)
 
 Runs on port 3145
 
+Demo
+---
+Demo can be found [here](http://198.13.96.21:3145/)
+
 Installation
 -----
 
