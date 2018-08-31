@@ -63,6 +63,18 @@
         if (p) alert('User has permissions set');
         else alert('No permissions set for user');
     });
+    $(document).ready(function(){
+        Notification.requestPermission(function(status) {
+            if (Notification.permission === 'granted') {
+                console.log('granted');
+                navigator.serviceWorker.getRegistration().then(function(reg) {
+                    reg.showNotification('Hello world!');
+                });
+            }
+
+        });
+
+    })
 
 </script>
 </body>

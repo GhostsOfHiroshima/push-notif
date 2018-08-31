@@ -1,0 +1,29 @@
+<html>
+<head>
+    <link href="/css/scrolling-nav.css" rel="stylesheet">
+</head>
+<body>
+<p>Service worker tutorial from <a href="https://developers.google.com/web/fundamentals/primers/service-workers/">Google</a></p>
+<hr>
+<p>Once page was loaded once, you can disable internet connection and refresh, page still loads</p>
+<script type="text/javascript">
+
+    if ('serviceWorker' in navigator) {
+        console.log('got serviceworker API available from browser');
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw-google-offline.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
+    else{
+        console.log('serviceworker API not available');
+    }
+
+</script>
+</body>
+</html>
