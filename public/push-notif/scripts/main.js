@@ -44,7 +44,7 @@ function urlB64ToUint8Array(base64String) {
 }
 
 function initializeUI() {
-    pushButton.addEventListener('click', function() {
+    pushButton.addEventListener('click', function () {
         pushButton.disabled = true;
         if (isSubscribed) {
             unsubscribeUser();
@@ -91,7 +91,7 @@ function subscribeUser() {
         userVisibleOnly: true,
         applicationServerKey: applicationServerKey
     })
-        .then(function(subscription) {
+        .then(function (subscription) {
             console.log('User is subscribed.');
 
             updateSubscriptionOnServer(subscription);
@@ -100,22 +100,23 @@ function subscribeUser() {
 
             updateBtn();
         })
-        .catch(function(err) {
+        .catch(function (err) {
             console.log('Failed to subscribe the user: ', err);
             updateBtn();
         });
 }
+
 function unsubscribeUser() {
     swRegistration.pushManager.getSubscription()
-        .then(function(subscription) {
+        .then(function (subscription) {
             if (subscription) {
                 return subscription.unsubscribe();
             }
         })
-        .catch(function(error) {
+        .catch(function (error) {
             console.log('Error unsubscribing', error);
         })
-        .then(function() {
+        .then(function () {
             updateSubscriptionOnServer(null);
 
             console.log('User is unsubscribed.');
@@ -125,6 +126,22 @@ function unsubscribeUser() {
         });
 }
 
+function server_subscription(subscription) {
+    var s = undefined;
+    s = JSON.stringify(subscription);
+
+    $.ajax({
+        url: '/subscribe',
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: s
+    }).done(function () {
+        console.log('server updated');
+    }).fail(function (err) {
+        console.log('cannot update server', err);
+    });
+}
 
 function updateSubscriptionOnServer(subscription) {
     // TODO: Send subscription to application server
@@ -139,6 +156,7 @@ function updateSubscriptionOnServer(subscription) {
     } else {
         subscriptionDetails.classList.add('is-invisible');
     }
+    server_subscription(subscription);
 }
 
 if ('serviceWorker' in navigator && 'PushManager' in window) {

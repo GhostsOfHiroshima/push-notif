@@ -25,11 +25,11 @@ self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push Received.');
     console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
-    const title = 'Push Codelab';
+    const title = 'ServiceWorker Push Demo';
     const options = {
-        body: 'Yay it works.',
-        icon: 'push-notif/images/icon.png',
-        badge: 'push-notif/images/badge.png'
+        body: 'Ta-da ! Much better then previous notification example',
+        icon: 'https://handmadebots.io/push-notif/images/icon.png',
+        badge: 'https://handmadebots.io/push-notif/images/badge.png'
     };
 
     event.waitUntil(self.registration.showNotification(title, options));
